@@ -8,7 +8,7 @@
     <ul class="conf-step__selectors-box">
       @foreach ($halls as $hall)
       <li wire:click="selectHall({{ $hall->id }})"">
-        <input type="radio" class="conf-step__radio" name="chairs-hall" value="{{ $hall->id }}" wire:model="currentHall" wire:key="hall{{ $hall->id }}>
+        <input type="radio" class="conf-step__radio" name="chairs-hall" value="{{ $hall->id }}" wire:model="currentHall" wire:key="hall{{ $hall->id }}">
         <span class="conf-step__selector">{{ $hall->title }}</span>
       </li>
       @endforeach

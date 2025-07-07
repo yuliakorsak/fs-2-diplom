@@ -18,14 +18,3 @@ Artisan::command('clearTemp', function () {
             Storage::disk('temp')->delete($file);
     });
 });
-
-Artisan::command('test11', function(){
-    $hall = \App\Models\Hall::create([
-        'title' => '1',
-        'is_active' => 'true',
-        'rows_count' => intval('10'),
-        'seats_count' => intval('10'),
-        'price_standart' => intval('100'),
-        'price_vip' => intval('100'),
-    ]);
-});
