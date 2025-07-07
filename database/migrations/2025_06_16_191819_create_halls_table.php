@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('seats_count');
             $table->unsignedInteger('price_standart');
             $table->unsignedInteger('price_vip');
-            $table->boolean('active');
+            $table->boolean('active')->default(false);
             $table->timestamps();
         });
     }

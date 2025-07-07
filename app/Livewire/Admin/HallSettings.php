@@ -60,7 +60,7 @@ class HallSettings extends Component
 
     public function setSeats()
     {
-        $arraySeatsCount = count($this->seats[1][$this->currentHall]);
+        $arraySeatsCount = count($this->seats[$this->currentHall][1]);
         $propSeatsCount = $this->seats_count[$this->currentHall];
         if ($arraySeatsCount < $propSeatsCount) {
             for ($i = 1; $i <= $this->rows_count[$this->currentHall]; $i++) {

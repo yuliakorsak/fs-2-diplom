@@ -24,7 +24,7 @@ class NewMovie extends Component
         'description' => 'required|string|max:500',
         'duration' => 'required|integer|min:10',
         'country' => 'required|string|max:255',
-        'poster' => 'required||max:512|mimes:jpg,png',
+        'poster' => 'required||max:1024|mimes:jpg,png',
     ];
 
     protected $messages = [
@@ -35,7 +35,7 @@ class NewMovie extends Component
         'duration.min' => 'Значение должно быть не меньше 10',
         '*.integer' => 'Значение должно быть целым числом',
         'poster.mimes' => 'Файл должен быть изображением в формате JPG или PNG',
-        'poster.max' => 'Размер файла превышает 512 кБ',
+        'poster.max' => 'Размер файла превышает 1024 кБ',
     ];
 
     protected $listeners = ['new-movie' => 'openPopup'];

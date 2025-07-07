@@ -51,24 +51,24 @@ class NewHall extends Component
     {
         $this->validate();
         try {
+            
             DB::beginTransaction();
-
             $hall = Hall::create([
                 'title' => $this->title,
                 'rows_count' => intval($this->rows_count),
                 'seats_count' => intval($this->seats_count),
                 'price_standart' => intval($this->price_standart),
                 'price_vip' => intval($this->price_vip),
-                'active' => 0,
+                'active' => false,
             ]);
             for ($i = 1; $i <= intval($this->rows_count); $i++) {
                 for ($j = 1; $j <= intval($this->seats_count); $j++) {
-                     Seat::create([
+                    Seat::create([
                         'hall_id' => $hall->id,
                         'row' => $i,
                         'seat' => $j,
                         'type' => 'standart',
-                    ]); 
+                    ]);
                 }
             }
             DB::commit();
@@ -80,7 +80,8 @@ class NewHall extends Component
         }
     }
 
-    public function updated($property) {
+    public function updated($property)
+    {
         $this->validateOnly($property);
     }
 
