@@ -46,9 +46,8 @@ class HallSettings extends Component
 
     public function setRows()
     {
-        $arrayRowsCount = count($this->seats[$this->currentHall]);
+        $arrayRowsCount = max(array_keys($this->seats[$this->currentHall]));
         $propRowsCount = $this->rows_count[$this->currentHall];
-
         if ($arrayRowsCount < $propRowsCount) {
             for ($i = $arrayRowsCount + 1; $i <= $propRowsCount; $i++) {
                 for ($j = 1; $j <= $this->seats_count[$this->currentHall]; $j++) {
@@ -60,7 +59,7 @@ class HallSettings extends Component
 
     public function setSeats()
     {
-        $arraySeatsCount = count($this->seats[$this->currentHall][1]);
+        $arraySeatsCount = max(array_keys($this->seats[$this->currentHall][1]));
         $propSeatsCount = $this->seats_count[$this->currentHall];
         if ($arraySeatsCount < $propSeatsCount) {
             for ($i = 1; $i <= $this->rows_count[$this->currentHall]; $i++) {
@@ -87,8 +86,11 @@ class HallSettings extends Component
         try {
             DB::beginTransaction();
             foreach ($this->halls as $hall) {
-                for ($i = 1; $i <= $this->rows_count[$hall->id]; $i++) {
-                    for ($j = 1; $j <= $this->seats_count[$hall->id]; $j++) { {
+                $hall->rows_count = $this->rows_count[$hall->id];
+                $hall->seats_count = $this->seats_count[$hall->id];
+                $hall->save();
+                for ($i = 1; $i <= $hall->rows_count; $i++) {
+                    for ($j = 1; $j <= $hall->seats_count; $j++) { {
                             $seat = Seat::updateOrCreate(
                                 [
                                     'hall_id' => $hall->id,
@@ -101,12 +103,9 @@ class HallSettings extends Component
                             );
                         }
                     }
+                Seat::where('hall_id', $hall->id)->where('row', '>', $hall->rows_count)->delete();
+                Seat::where('hall_id', $hall->id)->where('seat', '>', $hall->seats_count)->delete();
                 }
-                Seat::where('row', '>', $this->rows_count[$hall->id])->delete();
-                Seat::where('seat', '>', $this->seats_count[$hall->id])->delete();
-                $hall->rows_count = $this->rows_count[$hall->id];
-                $hall->seats_count = $this->seats_count[$hall->id];
-                $hall->save();
                 DB::commit();
             }
             $this->js("alert('Параметры залов сохранены.')");
@@ -126,9 +125,10 @@ class HallSettings extends Component
     {
         $this->preventSeatsRender = true;
         if ($this->validate()) {
-            if (Str::startsWith($propertyName, 'rows_count')) {
+            $property = explode('.', $propertyName);
+            if ($property[0] === 'rows_count') {
                 $this->setRows();
-            } else if (Str::startsWith($propertyName, 'seats_count')) {
+            } else if ($property[0] === 'seats_count') {
                 $this->setSeats();
             }
             $this->preventSeatsRender = false;
