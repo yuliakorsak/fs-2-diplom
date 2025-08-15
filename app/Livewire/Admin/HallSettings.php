@@ -6,7 +6,6 @@ use Livewire\Component;
 use Livewire\Attributes\Validate;
 use App\Models\Seat;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class HallSettings extends Component
 {

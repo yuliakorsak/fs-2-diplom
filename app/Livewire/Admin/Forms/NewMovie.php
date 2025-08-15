@@ -28,6 +28,7 @@ class NewMovie extends Component
     ];
 
     protected $messages = [
+        'poster.required' => 'Необходимо загрузить постер',
         '*.required' => 'Поле не должно быть пустым',
         'title.max' => 'Длина текста не должна превышать 255 символов',
         'country.max' => 'Длина текста не должна превышать 255 символов',

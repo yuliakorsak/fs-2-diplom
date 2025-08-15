@@ -5,7 +5,7 @@
   <div class="conf-step__wrapper">
     @if(count($halls) > 0)
     <p class="conf-step__paragraph">
-      <button class="conf-step__button conf-step__button-accent" type="button" wire:click="$dispatch('new-movie')">Добавить фильм</button>
+      <button class="conf-step__button conf-step__button-accent" type="button" wire:click="$dispatchTo('admin.forms.new-movie', 'new-movie')">Добавить фильм</button>
     </p>
     <div class="conf-step__movies">
       @foreach($movies as $movie)
@@ -13,6 +13,7 @@
         <img class="conf-step__movie-poster" alt="poster" src="{{ $movie->poster }}">
         <h3 class="conf-step__movie-title">{{ $movie->title }}</h3>
         <p class="conf-step__movie-duration">{{ $movie->duration }} минут</p>
+        <div class="conf-step__movie-delete" wire:click="$dispatchTo('admin.forms.delete-movie', 'delete-movie', { id: {{ $movie->id }} })"></div>
       </div>
       @endforeach
     </div>

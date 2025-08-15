@@ -393,9 +393,9 @@ fieldset {
 }
 
 .conf-step__error {
-	margin-top: 0.3rem;
-	font-size: 1.1rem;
-	color: #ee0000;
+  margin-top: 0.3rem;
+  font-size: 1.1rem;
+  color: #ee0000;
 }
 
 .conf-step__input:focus,
@@ -602,6 +602,23 @@ fieldset {
   color: rgba(0, 0, 0, 0.7);
 }
 
+.conf-step__movie-delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  background-image: url('../i/ui/trash-sprite.png');
+  background-position: 0 0;
+  background-size: 32px 16px;
+  background-repeat: no-repeat;
+  display: none;
+}
+
+.conf-step__movie:hover .conf-step__movie-delete {
+  display: block;
+}
+
 .conf-step__seances-hall {
   position: relative;
   margin: 35px;
@@ -767,6 +784,14 @@ fieldset {
   transition: .3s all ease;
 }
 
+.popup__upload-file {
+  cursor: pointer;
+}
+
+input[type='file'] {
+  display: none;
+}
+
 /*==================================*/
 
 .conf-step__wrapper__save-status {
@@ -795,8 +820,11 @@ textarea.conf-step__input {
 
 .popup__poster {
   height: 200px;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+  margin-bottom: 0.8rem;
+}
+
+.popup__poster img {
+  height: 100%;
 }
 
 .popup__container {
@@ -804,10 +832,13 @@ textarea.conf-step__input {
   justify-content: space-between;
 }
 
+#newMoviePopup .popup__container {
+  flex-wrap: wrap;
+}
+
 .popup__form {
   width: 100%;
 }
-
 
 .trash-seance {
   width: 40px;

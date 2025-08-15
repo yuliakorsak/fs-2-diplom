@@ -7,7 +7,7 @@ use App\Models\Movie;
 use App\Models\Seance;
 use Illuminate\Support\Facades\DB;
 
-class HallSeances extends Component
+class Seances extends Component
 {
 
     public $halls;
@@ -50,6 +50,6 @@ class HallSeances extends Component
 
     public function render()
     {
-        return view('livewire.admin.hall-seances');
+        return view('livewire.admin.seances');
     }
 }

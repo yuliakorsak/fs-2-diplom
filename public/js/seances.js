@@ -42,7 +42,7 @@ class MovieDrop {
   }
 
   onMouseDown(event) {
-    if (event.button === 0) {
+    if (!event.target.classList.contains('conf-step__movie-delete') && event.button === 0) {
       document.body.appendChild(this.elem);
       this.moveAt(event.pageX, event.pageY);
       document.addEventListener('mousemove', this.mouseMove);
@@ -172,7 +172,7 @@ function initSeances() {
   movieNodes.forEach(movie => {
     movie.ondragstart = () => { return false };
     movie.onmousedown = (event) => {
-      if (event.button === 0) {
+      if (!event.target.classList.contains('conf-step__movie-delete') && event.button === 0) {
         const drop = MovieDrop.fromMovie(movie);
         drop.moveAt(event.pageX, event.pageY);
         drop.onMouseDown(event);
@@ -215,5 +215,5 @@ function collectSeances() {
       });
     });
   });
-  Livewire.dispatchTo('admin.hall-seances', 'seances-collected', [data]);
+  Livewire.dispatchTo('admin.seances', 'seances-collected', [data]);
 }

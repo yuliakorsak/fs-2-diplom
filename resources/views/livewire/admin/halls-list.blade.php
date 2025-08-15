@@ -7,7 +7,11 @@
     <p class="conf-step__paragraph">Доступные залы:</p>
     <ul class="conf-step__list">
       @foreach ($halls as $hall)
-      <livewire:admin.halls-item :hall="$hall" :key="$hall->id" />
+      <li wire:key="$hall->id">{{ $hall->title }}
+        <button
+          class="conf-step__button conf-step__button-trash"
+          wire:click="$dispatchTo('admin.forms.delete-hall', 'delete-hall', { id: {{$hall->id}} })"></button>
+      </li>
       @endforeach
     </ul>
     @else
@@ -17,6 +21,6 @@
       class="conf-step__button conf-step__button-accent"
       id="create-hall"
       type="button"
-      wire:click="$dispatch('new-hall')">Создать зал</button>
+      wire:click="$dispatchTo('admin.forms.new-hall','new-hall')">Создать зал</button>
   </div>
 </section>
