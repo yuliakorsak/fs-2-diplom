@@ -13,7 +13,7 @@
       @endforeach
     </span></p>
     <p class="ticket__info">В зале: <span class="ticket__details ticket__hall">{{ $seance->hall->title}}</span></p>
-    <p class="ticket__info">Начало сеанса: <span class="ticket__details ticket__start">{{ $seance->start }}</span></p>
+    <p class="ticket__info">Начало сеанса: <span class="ticket__details ticket__start">{{ $seance->start }}, {{ $date }}</span></p>
     <p class="ticket__info">Стоимость: <span class="ticket__details ticket__cost">{{ $fullPrice }}</span> рублей</p>
 
     <button class="acceptin-button" wire:click="buyTickets()" >Получить код бронирования</button>

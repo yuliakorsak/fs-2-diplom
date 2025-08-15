@@ -3,7 +3,7 @@
     <div class="buying__info">
       <div class="buying__info-description">
         <h2 class="buying__info-title">{{ $seance->movie->title}}</h2>
-        <p class="buying__info-start">Начало сеанса: {{ $seance->start }}</p>
+        <p class="buying__info-start">Начало сеанса: {{ $seance->start }}, {{ $date }}</p>
         <p class="buying__info-hall">{{ $seance->hall->title }}</p>
       </div>
       <div class="buying__info-hint">

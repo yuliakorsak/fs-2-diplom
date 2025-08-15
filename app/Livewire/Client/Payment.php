@@ -3,6 +3,7 @@
 namespace App\Livewire\Client;
 
 use Livewire\Component;
+use Livewire\Attributes\Url;
 use App\Models\Seance;
 use App\Models\Seat;
 use App\Models\Ticket;
@@ -14,6 +15,8 @@ class Payment extends Component
     public $seance;
     public $seats;
     public $fullPrice;
+    #[Url]
+    public $date;
 
     public function mount()
     {
@@ -52,7 +55,7 @@ class Payment extends Component
 
     protected function makeCode($seat)
     {
-        return "SN{$this->seance->id}-R{$seat->row}-S{$seat->seat}-" . Str::random(16);
+        return "SN{$this->seance->id}-R{$seat->row}-S{$seat->seat}-D{$this->date}-" . Str::random(16);
     }
 
     public function render()

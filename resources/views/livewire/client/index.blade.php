@@ -1,24 +1,14 @@
 <div>
   <nav class="page-nav">
-    <a class="page-nav__day page-nav__day_today" href="#">
-      <span class="page-nav__day-week">Пн</span><span class="page-nav__day-number">31</span>
+    @for($i = 0; $i < 7; $i++)
+    <a @class([
+      'page-nav__day',
+      'page-nav__day_today' => $i === 0,
+      'page-nav__day_chosen' => $i === $chosenDay
+      ]) wire:click="$set('chosenDay', {{ $i }})">
+      <span class="page-nav__day-week"> {{ $week[$i]->minDayName }}</span><span class="page-nav__day-number">{{ $week[$i]->day }}</span>
     </a>
-    <a class="page-nav__day" href="#">
-      <span class="page-nav__day-week">Вт</span><span class="page-nav__day-number">1</span>
-    </a>
-    <a class="page-nav__day page-nav__day_chosen" href="#">
-      <span class="page-nav__day-week">Ср</span><span class="page-nav__day-number">2</span>
-    </a>
-    <a class="page-nav__day" href="#">
-      <span class="page-nav__day-week">Чт</span><span class="page-nav__day-number">3</span>
-    </a>
-    <a class="page-nav__day" href="#">
-      <span class="page-nav__day-week">Пт</span><span class="page-nav__day-number">4</span>
-    </a>
-    <a class="page-nav__day page-nav__day_weekend" href="#">
-      <span class="page-nav__day-week">Сб</span><span class="page-nav__day-number">5</span>
-    </a>
-    <a class="page-nav__day page-nav__day_next" href="#"></a>
+    @endfor
   </nav>
 
   <main>
@@ -44,7 +34,7 @@
         <h3 class="movie-seances__hall-title">{{ $hall->title }}</h3>
         <ul class="movie-seances__list">
           @foreach($hall->seances->where('movie_id', $movie->id)->sortBy('start') as $seance)
-          <li class="movie-seances__time-block"><a class="movie-seances__time" href="seance/{{ $seance->id }}">{{ $seance->start }}</a></li>
+          <li class="movie-seances__time-block"><a class="movie-seances__time" href="seance/{{ $seance->id }}?date={{ $week[$chosenDay]->toDateString() }}">{{ $seance->start }}</a></li>
           @endforeach
         </ul>
       </div>

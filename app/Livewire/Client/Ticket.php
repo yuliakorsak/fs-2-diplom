@@ -4,6 +4,7 @@ namespace App\Livewire\Client;
 
 include(base_path('phpqrcode/qrlib.php'));
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class Ticket extends Component
 {
@@ -18,7 +19,8 @@ class Ticket extends Component
                 if (is_null($ticketObj)) {
                     App::abort(404);
                 }
-                $this->tickets[] = $ticketObj;
+                $date = Str::match('/SN\d+-R\d+-S\d+-D(\d{4}-\d{2}-\d{2})[a-zA-Z0-9]{16}/', $ticket);
+                $this->tickets[] = ['obj' => $ticketObj, 'date' => $date];
             }
         }
     }

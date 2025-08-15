@@ -3,12 +3,16 @@
 namespace App\Livewire\Client;
 
 use Livewire\Component;
+use Livewire\Attributes\Url;
 use App\Models\Seance;
+use Carbon\Carbon;
 
 class Hall extends Component
 {
     public $seance;
     public $seats = [];
+    #[Url]
+    public $date = '';
 
     public function mapSeats()
     {
@@ -36,7 +40,6 @@ class Hall extends Component
             $this->seats[$row][$seat]['selected'] = false;
         }
     }
-
     public function confirmBooking()
     {
         $selected = [];
@@ -50,7 +53,7 @@ class Hall extends Component
         if (count($selected) === 0) {
             $this->js("alert('Вы не выбрали места.')");
         } else {
-            $query = http_build_query(['seance' => $this->seance->id, 'seats' => $selected]);
+            $query = http_build_query(['date' => $this->date, 'seance' => $this->seance->id, 'seats' => $selected]);
             redirect('payment?' . $query);
         }
     }
@@ -59,6 +62,9 @@ class Hall extends Component
     {
         $this->seance = Seance::findOrFail($id);
         $this->mapSeats();
+        if ($this->date === '') {
+            $this->date = Carbon::now()->toDateString();
+        }
     }
 
     public function render()
